@@ -1,0 +1,26 @@
+
+
+
+# Simple
+
+lw, sw, beq, add, sub, and, or, set on less than, j
+
+
+### R-type instruction
+
+
+ 31:26       25:21      20:16     15:11     10:6     5:0
+[   op   ][    rs    ][   rt   ][   rd   ][ shamt ][ funct  ]
+
+
+### load or store instruction
+
+ 31:26      25:21       20:16              15:0
+[   op   ][    rs    ][   rt   ][         address            ]
+
+
+
+### branch instruction
+
+ 31:26      25:21       20:16              15:0
+[   op   ][    rs    ][   rt   ][         address            ]
