@@ -22,5 +22,8 @@ class Instruction(object):
     def funct(self):
         return self.bits & 0x3f
 
-    def address(self):
+    def address(self):   # 16-bit address for beq... 
         return self.bits & 0xffff
+
+    def address2(self):  # 26-bit address for j...
+        return self.bits & 0x08000000

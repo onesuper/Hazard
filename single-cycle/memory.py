@@ -32,6 +32,12 @@ class Memory(object):
         else:
             raise MemoryException('segment fault')
 
+    def show_data(self, start=0, end=15):
+        return self.data[start:end]
+
+    def show_text(self, start=0, end=15):
+        return self.text[start:end]
+
     def getByte(self, addr):
         return self._read(addr)
 
@@ -39,4 +45,13 @@ class Memory(object):
         self._write(addr, value)
 
     def getWord(self, addr):
-        return self._read(addr) + (self._read(addr+1)<<8) + (self._read(addr+2)<<16) + (self._read(addr+3)<<24)
+        return self._read(addr) + (self._read(addr+1) << 8) + (self._read(addr+2) << 16) + (self._read(addr+3) << 24)
+
+    def setWord(self, addr, value):
+        self._write(addr, value & 0x000000ff)
+        self._write(addr+1, (value & 0x0000ff00) >> 8)
+        self._write(addr+2, (value & 0x00ff0000) >> 16)
+        self._write(addr+3, (value & 0xff000000) >> 24)
+
+
+

@@ -14,3 +14,6 @@ class HazardException(Exception):
 
 class MemoryException(HazardException):
     pass
+
+class ControlException(HazardException):
+    pass
