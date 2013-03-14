@@ -17,3 +17,7 @@ class MemoryException(HazardException):
 
 class ControlException(HazardException):
     pass
+
+
+class ALUException(HazardException):
+    pass

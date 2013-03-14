@@ -3,7 +3,7 @@ from exception import ALUException
 
 class ALU(object):
     def __init__(self):
-        self.result, self.A, self.B = 0
+        self.result, self.A, self.B = 0, 0, 0
         self.Zero = False
         
         

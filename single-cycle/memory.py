@@ -10,9 +10,9 @@ from exception import MemoryException
 
 
 class Memory(object):
-    def __init__(self, text_segment=0x00400000, data_segment=0x10000000):
-        self.text_segment = text_segment
-        self.data_segment = data_segment
+    def __init__(self):
+        self.text_segment = 0x00400000
+        self.data_segment = 0x10000000
         self.text = [0] * 4096
         self.data = [0] * 4096
         
