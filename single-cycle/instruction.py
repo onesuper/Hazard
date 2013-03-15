@@ -36,11 +36,11 @@ class Instruction(object):
     def _r(self):
         return '[  ' + str(self.op()) + '  ][  ' + str(self.rs()) + '  ][  ' + str(self.rt()) + '  ][  ' + str(self.rd()) + '  ][  ' + str(self.shamt()) + '  ][  ' + str(self.funct()) + '  ]'
 
-    def __str__(self):
+    def __repr__(self):
         return str(bin(self.bits))
     
 
-    def well(self):
+    def readable(self):
         if self.op() == 0:  # r-type
             return self._r()
         elif self.op() == 35: # w
@@ -51,7 +51,7 @@ class Instruction(object):
             return bin(self.bits)
 
 
-    def meaning(self):
+    def assembly(self):
         if self.op() == 0:  # r-type
             return 
         elif self.op() == 35:  #lw

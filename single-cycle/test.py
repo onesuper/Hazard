@@ -1,8 +1,6 @@
 
 
 from executable import EXE
-from loader import Loader
-from memory import Memory
 from datapath import Datapath
 
 
@@ -16,10 +14,7 @@ exe = EXE([1, 2], # data: 1, 2
           )
 
 
-# a memory loaded with data and code
-memory = Loader().load(exe, Memory())
-
-
-datapath = Datapath(memory)
+datapath = Datapath()
+datapath.load(exe)
 
 datapath.step()

@@ -3,19 +3,30 @@ from alu import ALU
 from instruction import Instruction
 from controls import Control
 from registers import Registers
+from memory import Memory
 from utils import sign_extends, mux, OR, Add, alu_control
 
 
 
 class Datapath(object):
 
-    def __init__(self, memory):
-        self.memory = memory
-        self.pc = memory.text_segment
+    def __init__(self):
+        self.memory = Memory()
+        self.pc = self.memory.text_segment  # pc may point to main: later
         self.alu = ALU()
         self.registers = Registers()
         self.control = Control()
         self.cycle = 0
+
+
+    # load the executable into memory and set up some registers
+    def load(self, exe):
+        data, text =  exe.data_section, exe.text_section
+        for i in range(len(data)):
+            self.memory.setWord(self.memory.data_segment+i*4, data[i])
+        for i in range(len(text)):
+            self.memory.setWord(self.memory.text_segment+i*4, text[i])
+
 
     def step(self):
 
@@ -25,8 +36,8 @@ class Datapath(object):
         # fetch a word from memory, and make it an instruction
         inst = Instruction(self.memory.getWord(self.pc))
         print 'instructions: ' + str(inst)
-        print inst.well()
-        print inst.meaning()
+        print inst.readable()
+        print inst.assembly()
 
         # read the ALU operators from registers ANYWAY
         reg_data1 = self.registers[inst.rs()]
@@ -42,8 +53,8 @@ class Datapath(object):
         # ALU work
         self.alu.A = reg_data1
         self.alu.B = mux(signal.ALUSrc,
-                    sign_extends(inst.address()),
-                    reg_data2)
+                         sign_extends(inst.address()),
+                         reg_data2)
         print 'ALU A: ' + str(self.alu.A)
         print 'ALU B: ' + str(self.alu.B)
 
@@ -78,3 +89,6 @@ class Datapath(object):
             
 
         self.cycle += 1
+
+
+      

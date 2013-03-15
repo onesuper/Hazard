@@ -15,7 +15,7 @@ class Registers(object):
     def __getitem__(self, read_reg):
         return self.registers[read_reg]
 
-    def __str__(self):
+    def __repr__(self):
         group = ['$zero: ' + str(self.registers[0]),
                  '$at:' + str(self.registers[1]),
                  '$v0-$v1: ' + str(self.registers[2:4]),

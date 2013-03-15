@@ -13,7 +13,7 @@ class Signals(object):
         self.ALUOp1 = ALUOp1
         self.ALUOp0 = ALUOp0
 
-    def __str__(self):
+    def __repr__(self):
         group = ['RegDst: ' + boolize(self.RegDst),
                  'ALUSrc: ' + boolize(self.ALUSrc),
                  'MemtoReg: ' + boolize(self.MemtoReg),

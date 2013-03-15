@@ -5,7 +5,6 @@ from signals import r, lw, sw, beq
 
 class Control(object):
 
-  
     def to_signal(self, intruction):
         if intruction.op() == 0b000000:
             return r

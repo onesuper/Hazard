@@ -7,6 +7,10 @@
 # it can be dumped into memory by the loader
 
 class EXE(object):
-    def __init__(self, data, text):
-        self.data = data
-        self.text = text
+    def __init__(self, data_section, text_section, entry=0):
+        self.data_section = data_section
+        self.text_section = text_section
+        self.entry = entry
+
+    def __repr__(self):
+        return
