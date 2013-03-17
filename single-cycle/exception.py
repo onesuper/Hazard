@@ -21,3 +21,7 @@ class ControlException(HazardException):
 
 class ALUException(HazardException):
     pass
+
+
+class AsmException(HazardException):
+    pass

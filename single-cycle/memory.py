@@ -55,3 +55,11 @@ class Memory(object):
 
 
 
+    # load the obj code into memory and set up some registers
+    def load(self, obj):
+        data, text =  obj.data_section, obj.text_section
+        for i in range(len(data)):
+            self.setWord(self.data_segment+i*4, data[i])
+        for i in range(len(text)):
+            self.setWord(self.text_segment+i*4, text[i])
+

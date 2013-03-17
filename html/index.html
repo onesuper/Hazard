@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  
+<head>
+  <script src="raphael.js"></script>
+  <style>
+    #container {
+    margin: 20px auto;
+    width: 960px;
+    }
+    h1,p {text-align: center;}
+  </style>
+</head>
+
+
+<body>
+  <div id="container">
+  <h1>Hello! MIPS! v0.0.1</h1>
+
+  <p>
+    <a onmouseover="runadd();" href="/" onmouseclick="return false;" onmouseout="reset();">add $d, $rs, rt</a>
+  </p>
+  <div id="circuit"></div>
+  </div>
+
+</body>
+
+
+<script src="hazard.js"></script>
+
+
+</html>

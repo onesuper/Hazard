@@ -48,6 +48,6 @@ def alu_control(ALUOp1, ALUOp0, funct):
         return 0b0111
     else:
         from exception import ControlException
-        raise ControlException('the ALU control')
+        raise ControlException('ALU control unknown')
         
         

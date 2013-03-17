@@ -29,4 +29,4 @@ r = Signals(True, False, False, True, False, False, False, True, False)
 lw = Signals(False, True, True, True, True, False, False, False, False)
 sw = Signals(None, True, None, False, False, True, False, False, False)
 beq = Signals(None, False, None, False, False, False, True, False, True)
-    
+addi =Signals()    

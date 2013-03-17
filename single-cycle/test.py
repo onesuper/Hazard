@@ -1,20 +1,18 @@
 
 
-from executable import EXE
+from obj import Obj
 from datapath import Datapath
+from lazy import addi, add
 
-
-exe = EXE([1, 2], # data: 1, 2
-          [0b10001100000010000000000000000000,  # lw $t(8), offset($s(0))
-           0b10001100000010010000000000000001,  # lw st(9), offset($s(0))
-          #0b100011ssssstttttiiiiiiiiiiiiiiii  
-           0b00000001000010010101000000100000]  # add $d(10), $s(8), $t(9)
-          #0b000000ssssstttttddddd00000100000
-          #0b12345678123456781234567812345678
-          )
+obj = Obj()
+obj.data_section = [1, 2]
+obj.text_section = [addi('$t0', '$zero', 15),
+                    addi('$t1', '$zero', 12),
+                    add('$t2', '$t0', '$t1')]
 
 
 datapath = Datapath()
-datapath.load(exe)
+
+datapath.memory.load(obj)
 
 datapath.step()

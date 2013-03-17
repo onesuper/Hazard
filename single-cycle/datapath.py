@@ -12,20 +12,12 @@ class Datapath(object):
 
     def __init__(self):
         self.memory = Memory()
-        self.pc = self.memory.text_segment  # pc may point to main: later
+        self.pc = self.memory.text_segment  # pc might point to 'main' later
         self.alu = ALU()
         self.registers = Registers()
         self.control = Control()
         self.cycle = 0
 
-
-    # load the executable into memory and set up some registers
-    def load(self, exe):
-        data, text =  exe.data_section, exe.text_section
-        for i in range(len(data)):
-            self.memory.setWord(self.memory.data_segment+i*4, data[i])
-        for i in range(len(text)):
-            self.memory.setWord(self.memory.text_segment+i*4, text[i])
 
 
     def step(self):
