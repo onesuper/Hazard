@@ -8,6 +8,8 @@ class ALU(object):
         
         
     def work(self, control):
+        
+        # set result
         if control == 0b0000:
             self.result = self.A and self.B
         elif control == 0b0001:
@@ -22,7 +24,9 @@ class ALU(object):
             self.result = self.A ^ self.B
         else: 
             raise ALUException('the ALU control code cannot be translated into a valid behavior')
-
+        
+        # set zero according to result
+        self.Zero = (self.result == 0)
 
 
 

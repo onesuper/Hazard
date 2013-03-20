@@ -11,8 +11,10 @@ regs = (
 
 
 def rid(name):
-    return regs.index(name.lower())
-
+    try:
+        return regs.index(name.lower())
+    except ValueError:
+        raise Exception("register name error")
 
 
 #################### R-type
@@ -24,28 +26,28 @@ def r(rd, rs, rt, shamt, funct):
 
 def add(rd, rs, rt):
     shamt = 0
-    funct = 0x100000
+    funct = 0b100000
     return r(rd, rs, rt, shamt, funct)
 
 def sub(rd, rs, rt):
     shamt = 0
-    funct = 0x100011
+    funct = 0b100010
     return r(rd, rs, rt, shamt, funct)
 
 def and_(rd, rs, rt):
     shamt = 0
-    funct = 0x100100
+    funct = 0b100100
     return r(rd, rs, rt, shamt, funct)
 
 def or_(rd, rs, rt):
     shamt = 0
-    funct = 0x100101
+    funct = 0b100101
     return r(rd, rs, rt, shamt, funct)
 
 
 def slt(rd, rs, rt):
     shamt = 0
-    funct = 0x101010
+    funct = 0b101010
     return r(rd, rs, rt, shamt, funct)
 
 
@@ -55,23 +57,22 @@ def slt(rd, rs, rt):
 def i(op, rs, rt, offset):
     return offset + (rid(rt)<<16) + (rid(rs)<<21) + (op<<26)
 
-
 def addi(rt, rs, imm):
-    op = 0x001000
+    op = 0b001000
     return i(op, rs, rt, imm)
 
 
 def lw(rt, rs, offset):
-    op = 0x100011
+    op = 0b100011
     return i(op, rs, rt, offset)
     
 
 def sw(rt, rs, offset):
-    op = 0x101011
+    op = 0b101011
     return i(op, rs, rt, offset)
 
 def beq(rs, rt, offset):
-    op = 0x000100
+    op = 0b000100
     return i(op, rs, rt, offset)
 
 
@@ -79,13 +80,13 @@ def beq(rs, rt, offset):
 
 
 def j(target):
-    op = 0x000010
+    op = 0b000010
     return target + (op<<26)
 
 
 def syscall():
-    op = 0x000000
-    funct = 0x001100
+    op = 0b000000
+    funct = 0b001100
     return funct + (op<<26)
 
 

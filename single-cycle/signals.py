@@ -1,8 +1,8 @@
 
 from utils import boolize
 
-class Signals(object):
-    def __init__(self, RegDst, ALUSrc, MemtoReg, RegWrite, MemRead, MemWrite, Branch, ALUOp1, ALUOp0):
+class Signal(object):
+    def __init__(self, RegDst=False, ALUSrc=False, MemtoReg=False, RegWrite=False, MemRead=False, MemWrite=False, Branch=False, ALUOp1=False, ALUOp0=False):
         self.RegDst = RegDst
         self.ALUSrc = ALUSrc
         self.MemtoReg = MemtoReg
@@ -12,21 +12,16 @@ class Signals(object):
         self.Branch = Branch
         self.ALUOp1 = ALUOp1
         self.ALUOp0 = ALUOp0
+#       self.Jump = Jump
 
     def __repr__(self):
-        group = ['RegDst: ' + boolize(self.RegDst),
-                 'ALUSrc: ' + boolize(self.ALUSrc),
-                 'MemtoReg: ' + boolize(self.MemtoReg),
-                 'RegWrite: ' + boolize(self.RegWrite),
-                 'MemRead: ' + boolize(self.MemRead),
-                 'MemWrite: ' + boolize(self.MemWrite),
-                 'Branch: ' + boolize(self.Branch),
-                 'ALUOp1: ' + boolize(self.ALUOp1),
-                 'ALUOp0: ' + boolize(self.ALUOp0)]
-        return '\n'.join(group)
+        s = vars(self)
+        # display the enabled signals
+        return str([k for k in s.keys() if s[k]])
 
-r = Signals(True, False, False, True, False, False, False, True, False)
-lw = Signals(False, True, True, True, True, False, False, False, False)
-sw = Signals(None, True, None, False, False, True, False, False, False)
-beq = Signals(None, False, None, False, False, False, True, False, True)
-addi =Signals()    
+# None = we don't care that signal
+r = Signal(RegDst=True, RegWrite=True, ALUOp1=True)
+lw = Signal(ALUSrc=True, MemtoReg=True, RegWrite=True, MemRead=True)
+sw = Signal(ALUSrc=True, MemWrite=True)
+beq = Signal(Branch=True, ALUOp0=True)
+addi =Signal(ALUSrc=True, RegWrite=True)    

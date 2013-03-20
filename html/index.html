@@ -3,6 +3,7 @@
 <html lang="en">
   
 <head>
+  <title>Hello! MIPS!</title>
   <script src="raphael.js"></script>
   <style>
     #container {
@@ -10,16 +11,23 @@
     width: 960px;
     }
     h1,p {text-align: center;}
+
   </style>
 </head>
 
 
 <body>
   <div id="container">
-  <h1>Hello! MIPS! v0.0.1</h1>
+  <h1>Hello! MIPS!</h1>
 
   <p>
-    <a onmouseover="runadd();" href="/" onmouseclick="return false;" onmouseout="reset();">add $d, $rs, rt</a>
+    <a onmouseover="runRtype();" href="javascript:void(0);" onmouseclick="return false;" onmouseout="reset();">add $d, $s, t</a><br>
+    <a onmouseover="runAddi();" href="javascript:void(0);" onmouseclick="return false;" onmouseout="reset();">addi $t, $s, imm</a><br>
+    <a onmouseover="runLw();" href="javascript:void(0);" onmouseclick="return false;" onmouseout="reset();">lw $t, offset($s)</a><br>
+    <a onmouseover="runSw();" href="javascript:void(0);" onmouseclick="return false;" onmouseout="reset();">sw $t, offset($s)</a><br>
+    <a onmouseover="runBeq();" href="javascript:void(0);" onmouseclick="return false;" onmouseout="reset();">beq $s, $t, offset</a><br>
+    <a onmouseover="runJ();" href="javascript:void(0);" onmouseclick="return false;" onmouseout="reset();">j target</a><br>
+    
   </p>
   <div id="circuit"></div>
   </div>

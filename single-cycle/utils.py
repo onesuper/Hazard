@@ -1,6 +1,6 @@
 
 # 16bit -> 32bit
-def sign_extends(bits):
+def sign_extend(bits):
     if bits & 0x8000:   # [16] is 1
         return bits | 0xffff0000
     else:

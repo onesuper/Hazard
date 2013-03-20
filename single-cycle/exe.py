@@ -4,7 +4,7 @@
 # just for readablity!
 # it can be dumped into memory by the loader
 
-class Obj(object):
+class Exe(object):
     def __init__(self, data_section=[], text_section=[], entry=0x1000000):
         self.data_section = data_section
         self.text_section = text_section

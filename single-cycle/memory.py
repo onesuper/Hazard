@@ -9,26 +9,30 @@
 from exception import MemoryException
 
 
+text_start = 0x00400000
+data_start = 0x10000000
+
+
 class Memory(object):
+
+
     def __init__(self):
-        self.text_segment = 0x00400000
-        self.data_segment = 0x10000000
         self.text = [0] * 4096
         self.data = [0] * 4096
         
     def _read(self, addr):
-        if self.text_segment <= addr <= self.text_segment + 4096:
-            return self.text[addr-self.text_segment]
-        elif self.data_segment <= addr <= self.data_segment + 4096:
-            return self.data[addr-self.data_segment]
+        if text_start <= addr <= text_start + 4096:
+            return self.text[addr-text_start]
+        elif data_start <= addr <= data_start + 4096:
+            return self.data[addr-data_start]
         else:
             raise MemoryException('segment fault')
 
     def _write(self, addr, byte):
-        if self.text_segment <= addr <= self.text_segment + 4096:
-            self.text[addr-self.text_segment] = byte
-        elif self.data_segment <= addr <= self.data_segment + 4096:
-            self.data[addr-self.data_segment] = byte
+        if text_start <= addr <= text_start + 4096:
+            self.text[addr-text_start] = byte
+        elif data_start <= addr <= data_start + 4096:
+            self.data[addr-data_start] = byte
         else:
             raise MemoryException('segment fault')
 
@@ -55,11 +59,11 @@ class Memory(object):
 
 
 
-    # load the obj code into memory and set up some registers
+    # load the obj code into memory
     def load(self, obj):
         data, text =  obj.data_section, obj.text_section
         for i in range(len(data)):
-            self.setWord(self.data_segment+i*4, data[i])
+            self.setWord(data_start+i*4, data[i])
         for i in range(len(text)):
-            self.setWord(self.text_segment+i*4, text[i])
+            self.setWord(text_start+i*4, text[i])
 
