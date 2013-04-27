@@ -27,8 +27,11 @@ d.memory.load(exe)
 
 
 
-for i in range(len(exe.text_section)):
-    d.step(Debug=('pc', 'Reg', 'ALU', 'ALU control'))
+d.step(Debug=('fsm', 'pc', 'IR', 'cycle'))
+d.step(Debug=('fsm', 'rs', 'rt', 'pc', 'cycle', 'ALUOut'))
+d.step(Debug=('fsm', 'pc', 'cycle'))
+d.step(Debug=('fsm', 'pc', 'cycle'))
+d.step(Debug=('fsm', 'pc', 'cycle'))
 
 
 

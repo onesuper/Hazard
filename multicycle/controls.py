@@ -1,6 +1,6 @@
 
 from exception import ControlException
-from signals import r, lw, sw, beq, addi, j
+#from signals import r, lw, sw, beq, addi, j
 from encoder import encode
 
 # decode the opcode to an associated signal

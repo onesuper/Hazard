@@ -10,6 +10,10 @@ def mux(control, a, b):
     return a if control else b
     
 
+def mux4(control, l):
+    return l[control]
+
+
 
 def AND(a, b):
     return a and b
@@ -28,20 +32,20 @@ def boolize(b):
     else: return 'x' 
 
 
-def alu_control(ALUOp1, ALUOp0, funct):
-    if not ALUOp1 and not ALUOp0:
+def alu_control(ALUOp, funct):
+    if ALUOp == 0:
         return 0b0010
-    elif ALUOp0:
+    elif ALUOp == 1:
         return 0b0110
-    elif ALUOp1 and (funct & 0b1111) == 0b0000:
+    elif ALUOp == 2 and (funct & 0b1111) == 0b0000:
         return 0b0010
-    elif ALUOp1 and (funct & 0b1111) == 0b0010:
+    elif ALUOp == 2 and (funct & 0b1111) == 0b0010:
         return 0b0110
-    elif ALUOp1 and (funct & 0b1111) == 0b0100:
+    elif ALUOp == 2 and (funct & 0b1111) == 0b0100:
         return 0b0000
-    elif ALUOp1 and (funct & 0b1111) == 0b0101:
+    elif ALUOp == 2 and (funct & 0b1111) == 0b0101:
         return 0b0001
-    elif ALUOp1 and (funct & 0b1111) == 0b1010:
+    elif ALUOp == 2 and (funct & 0b1111) == 0b1010:
         return 0b0111
     else:
         from exception import ControlException

@@ -7,24 +7,22 @@ class ALU(object):
         self.Zero = False
         
         
-    def work(self, control):
+    def calculate(self):
 
-
-        # set result
-        if control == 0b0000:
+        if self.control == 0b0000:
             self.result = self.A and self.B
-        elif control == 0b0001:
+        elif self.control == 0b0001:
             self.result =  self.A or self.B
-        elif control == 0b0010:
+        elif self.control == 0b0010:
             self.result = self.A + self.B
-        elif control == 0b0110:
+        elif self.control == 0b0110:
             self.result = self.A - self.B
-        elif control == 0b0111:
+        elif self.control == 0b0111:
             if self.A < self.B: 
                 self.result = 1
             else:
                 self.result = 0
-        elif control == 0b1100:
+        elif self.control == 0b1100:
             self.result = self.A ^ self.B
         else: 
             raise ALUException('the ALU control code cannot be translated into a valid behavior')

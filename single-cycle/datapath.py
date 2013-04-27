@@ -4,7 +4,7 @@ from instruction import Instruction
 from controls import Control
 from registers import Registers
 from memory import Memory
-from utils import sign_extend, mux, OR, Add, alu_control
+from utils import sign_extend, mux, AND, Add, alu_control
 
 
 
@@ -43,13 +43,13 @@ class Datapath(object):
         # do everything in the serial code
         # ALU work
         self.alu.A = Read_data1
-        self.alu.B = mux(signal.ALUSrc, sign_extends(inst.imm()), Read_data2)
+        self.alu.B = mux(signal.ALUSrc, sign_extend(inst.imm()), Read_data2)
         alu_control_value = alu_control(signal.ALUOp1, signal.ALUOp0, inst.funct())
         self.alu.work(alu_control_value)  # main work!
         ALU_result = self.alu.result
 
         if 'ALU control' in Debug:
-            print  bin(alu_control_value)
+            print  'ALU control: {0}'.format(bin(alu_control_value))
 
         if 'ALU' in Debug:
             print "ALU in1: {0}".format(self.alu.A)
@@ -88,11 +88,19 @@ class Datapath(object):
                 print "REG[{0}] = {1}".format(WriteRegister, self.registers[WriteRegister])
                       
         # update pc to pc+4 or branch to another place
-        self.pc = mux(OR(self.alu.Zero, signal.Branch), 
-                      Add(self.pc + 4, sign_extend(inst.imm()) << 2),
-                      self.pc + 4)
+        mux4_result = mux(AND(self.alu.Zero, signal.Branch), 
+                          Add(self.pc + 4, sign_extend(inst.imm()) << 2),
+                          self.pc + 4)
+
+
+        jump_target = (inst.target() << 2) | ((self.pc+4) & 0xf0000000)
+        self.pc = mux(signal.Jump, jump_target, mux4_result)
+
         if 'pc' in Debug:
             print "next pc: {0:x}".format(self.pc) 
+
+        if 'Reg' in Debug:
+            print self.registers
 
         self.cycle += 1
 
